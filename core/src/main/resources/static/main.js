@@ -11,13 +11,6 @@
 $(document).ready(function() {
 	$("body").append(window["backbone-template"]["mutationViews"]);
 
-	var _mut3dVis = null;
-	_mut3dVis = new Mutation3dVis("default3dView", {
-		appOptions: {j2sPath: "../lib/jsmol/j2s", el: "#mutation_details"},
-		frame: "../build/jsmol_frame.html"
-	});
-	_mut3dVis.init();
-
 	function processInput(input)
 	{
 		//var sampleArray = PortalGlobals.getCases().trim().split(/\s+/);
@@ -86,16 +79,16 @@ $(document).ready(function() {
 			columnRender: {
 				caseId: function(datum) {
 					var mutation = datum.mutation;
-					var caseIdFormat = MutationDetailsTableFormatter.getCaseId(mutation.caseId);
+					var caseIdFormat = MutationDetailsTableFormatter.getCaseId(mutation.get("caseId"));
 					var vars = {};
-					vars.linkToPatientView = mutation.linkToPatientView;
+					vars.linkToPatientView = mutation.get("linkToPatientView");
 					vars.caseId = caseIdFormat.text;
 					vars.caseIdClass = caseIdFormat.style;
 					vars.caseIdTip = caseIdFormat.tip;
 
 					var templateFn;
 
-					if (mutation.linkToPatientView)
+					if (mutation.get("linkToPatientView"))
 					{
 						templateFn = BackboneTemplateCache.getTemplateFn("mutation_table_case_id_template");
 					}
@@ -162,7 +155,7 @@ $(document).ready(function() {
 
 		// init mutation mapper
 		var mutationMapper = new MutationMapper(options);
-		mutationMapper.init(_mut3dVis);
+		mutationMapper.init();
 	}
 
 	$(".visualize").click(function(evt){
