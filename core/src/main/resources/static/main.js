@@ -118,14 +118,22 @@ $(document).ready(function() {
 				},
 				pfamProxy: {
 					options: {
-						initMode: "full",
+                        servletName: "/pfam",
+						initMode: "lazy",
 						data: TestData.getPfamData()
 					}
 				},
 				pdbProxy: {
 					options: {
-						initMode: "full",
+                        servletName: "/pdb",
+						initMode: "lazy",
 						data: TestData.getPdbData()
+					}
+				},
+				variantAnnotationProxy: {
+					options: {
+						initMode: "lazy",
+						data: TestData.getAnnotationData()
 					}
 				},
 				mutationAlignerProxy: {
